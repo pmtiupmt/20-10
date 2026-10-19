@@ -1,464 +1,968 @@
-<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Hộp Quà 20/10</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap">
-<style>
-/* Layout: một cột hẹp cho điện thoại. Hộp quà vẽ bằng SVG ở trên, thẻ lời chúc mở ra bên dưới. */
-:root {
-  --bg: #fcefef;
-  --surface: #fff8f7;
-  --fg: #3b1020;
-  --muted: #8a5565;
-  --accent: #c2185b;
-  --accent-fg: #fff8f7;
-  --gold: #a87418;
-  --line: #ecccd2;
-  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --body: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #280a17; --surface: #361425; --fg: #fbe8ec; --muted: #c79aa8;
-    --accent: #f27ca2; --accent-fg: #2a0a17; --gold: #e6bc63; --line: #552838;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #280a17; --surface: #361425; --fg: #fbe8ec; --muted: #c79aa8;
-  --accent: #f27ca2; --accent-fg: #2a0a17; --gold: #e6bc63; --line: #552838;
-  color-scheme: dark;
-}
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+  <title>Hộp Quà 20/10</title>
 
-* { box-sizing: border-box; }
-body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: var(--body);
-  font-size: 16px;
-  line-height: 1.6;
-  padding-block: 28px 40px;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-}
-.wrap {
-  max-width: 440px;
-  margin-inline: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  min-width: 0;
-}
-.eyebrow {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-h1 {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: clamp(34px, 10vw, 46px);
-  line-height: 1.12;
-  margin: 6px 0 0;
-  text-wrap: balance;
-}
-h1 em { font-style: italic; font-weight: 500; color: var(--accent); }
-.lede { margin: 0; color: var(--muted); max-width: 34ch; }
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap"
+  >
 
-.stage { display: flex; justify-content: center; padding-block: 4px; }
-.box {
-  width: min(100%, 260px);
-  height: auto;
-  cursor: pointer;
-  overflow: visible;
-  -webkit-tap-highlight-color: transparent;
-}
-.box:focus-visible { outline: 3px solid var(--gold); outline-offset: 6px; border-radius: 8px; }
-.lid { transform-box: fill-box; transform-origin: 0% 100%; transition: transform 0.55s cubic-bezier(0.3, 1.4, 0.5, 1); }
-.box.open .lid { transform: translate(-14px, -52px) rotate(-14deg); }
-.box:not(.open) { animation: nudge 3.2s ease-in-out infinite; }
-@keyframes nudge { 0%, 88%, 100% { transform: rotate(0); } 92% { transform: rotate(-2.5deg); } 96% { transform: rotate(2.5deg); } }
-.glow { opacity: 0; transition: opacity 0.4s 0.1s; }
-.box.open .glow { opacity: 1; }
-
-.who { display: flex; flex-direction: column; gap: 6px; }
-.who label { font-size: 13px; font-weight: 500; color: var(--muted); }
-.who input {
-  font: inherit;
-  color: var(--fg);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 11px 14px;
-  min-width: 0;
-  width: 100%;
-}
-.who input:focus-visible { outline: 3px solid var(--gold); outline-offset: 1px; }
-.who input::placeholder { color: var(--muted); opacity: 0.7; }
-
-.btn {
-  font: inherit;
-  font-weight: 600;
-  border-radius: 999px;
-  border: 1.5px solid var(--accent);
-  padding: 13px 22px;
-  cursor: pointer;
-  background: var(--accent);
-  color: var(--accent-fg);
-  transition: transform 0.15s ease;
-}
-.btn:active { transform: scale(0.97); }
-.btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
-.btn.ghost { background: transparent; color: var(--accent); }
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 24px 22px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  animation: rise 0.55s 0.25s both cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
-.tag {
-  align-self: flex-start;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid var(--gold);
-  border-radius: 999px;
-  padding: 2px 10px;
-}
-.to { font-family: var(--display); font-style: italic; font-size: 19px; color: var(--accent); margin: 0; overflow-wrap: anywhere; }
-.wish {
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: clamp(21px, 6vw, 25px);
-  line-height: 1.45;
-  margin: 0;
-  white-space: pre-line;
-  text-wrap: pretty;
-  overflow-wrap: anywhere;
-}
-.sign { margin: 0; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px; }
-.actions { display: flex; flex-wrap: wrap; gap: 10px; }
-.note { margin: 0; font-size: 13px; color: var(--muted); min-height: 1.4em; }
-
-canvas.petals { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
-
-@media (prefers-reduced-motion: reduce) {
-  .box:not(.open) { animation: none; }
-  .lid, .glow { transition: none; }
-  .card { animation: none; }
-}
-</style>
-
-<main class="wrap">
-  <header>
-    <div class="eyebrow">Ngày Phụ nữ Việt Nam · 20.10</div>
-    <h1>Một hộp quà, <em>một lời chúc</em> dành riêng cho bạn</h1>
-  </header>
-
-<div class="stage">
-    <svg id="box" class="box" viewBox="0 0 240 230" role="button" tabindex="0" aria-label="Mở hộp quà">
-      <ellipse cx="120" cy="214" rx="86" ry="9" fill="var(--fg)" opacity="0.12"/>
-      <g class="glow" aria-hidden="true">
-        <path d="M120 96 L96 40 M120 96 L120 22 M120 96 L146 38 M120 96 L72 62 M120 96 L170 60" stroke="var(--gold)" stroke-width="3" stroke-linecap="round"/>
-      </g>
-      <rect x="40" y="104" width="160" height="104" rx="6" fill="var(--accent)"/>
-      <rect x="40" y="104" width="160" height="14" fill="var(--fg)" opacity="0.18"/>
-      <rect x="108" y="104" width="24" height="104" fill="var(--gold)"/>
-      <g class="lid">
-        <rect x="30" y="76" width="180" height="34" rx="6" fill="var(--accent)"/>
-        <rect x="30" y="100" width="180" height="10" rx="3" fill="var(--fg)" opacity="0.2"/>
-        <rect x="108" y="76" width="24" height="34" fill="var(--gold)"/>
-        <path d="M120 76 C96 40 62 52 82 72 C94 82 112 78 120 76 Z" fill="var(--gold)"/>
-        <path d="M120 76 C144 40 178 52 158 72 C146 82 128 78 120 76 Z" fill="var(--gold)"/>
-        <path d="M120 76 C100 56 82 58 90 70" fill="none" stroke="var(--bg)" stroke-width="2" opacity="0.5"/>
-        <path d="M120 76 C140 56 158 58 150 70" fill="none" stroke="var(--bg)" stroke-width="2" opacity="0.5"/>
-        <circle cx="120" cy="76" r="8" fill="var(--gold)" stroke="var(--bg)" stroke-width="2"/>
-      </g>
-    </svg>
-  </div>
-
-  <div class="who">
-    <label for="name">Tên của bạn</label>
-    <input id="name" type="text" maxlength="24" autocomplete="given-name">
-  </div>
-  <button id="open" class="btn" type="button">Mở hộp quà</button>
-
-  <p id="status" class="note" role="status" aria-live="polite"></p>
-
-  <section id="card" class="card" hidden aria-live="polite">
-    <span id="tag" class="tag"></span>
-    <p id="to" class="to"></p>
-    <p id="wish" class="wish"></p>
-    <p class="sign">Chúc mừng ngày 20/10.</p>
-    <p id="note" class="note"></p>
-  </section>
-</main>
-
-<canvas id="petals" class="petals" aria-hidden="true"></canvas>
-
-<script src="./config.js"></script>
-<script>
-(function () {
-
-
-  var $ = function (id) { return document.getElementById(id); };
-  var box = $('box'), openBtn = $('open'), card = $('card'), nameInput = $('name');
-  var busy = false, opened = false;
-  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-
-  // Tên có thể đến từ phần #anchor của link, ví dụ ...#Lan
-  try {
-    var h = decodeURIComponent(location.hash.slice(1)).replace(/[._~-]+/g, ' ').trim();
-    if (h) nameInput.value = h.charAt(0).toUpperCase() + h.slice(1);
-  } catch (e) {}
-
-  async function pick() {
-    var config = window.GIFT_CONFIG || {};
-    var url = (config.supabaseUrl || '').trim().replace(/\/+$/, '');
-    var key = (config.publishableKey || '').trim();
-    if (!/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(url) || !key.startsWith('sb_publishable_')) {
-      throw new Error('Trang chưa kết nối dữ liệu. Chủ trang cần điền config.js trước nhé.');
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #fcefef;
+      --surface: #fff8f7;
+      --fg: #3b1020;
+      --muted: #8a5565;
+      --accent: #c2185b;
+      --accent-fg: #fff8f7;
+      --gold: #a87418;
+      --line: #ecccd2;
+      --display: 'Playfair Display', Georgia, serif;
+      --body: 'Be Vietnam Pro', system-ui, sans-serif;
     }
-    var controller = new AbortController();
-    var timer = setTimeout(function () { controller.abort(); }, 20000);
-    try {
-      var response = await fetch(url + '/rest/v1/rpc/draw_gift_wish', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', apikey: key },
-        body: '{}',
-        signal: controller.signal
-      });
-      if (!response.ok) throw new Error('Chưa lấy được lời chúc. Bạn thử lại sau một chút nhé.');
-      var data = await response.json();
-      if (!Array.isArray(data.wish) || data.wish.length !== 2 || data.wish.some(function (v) { return typeof v !== 'string'; })) {
-        throw new Error('Dữ liệu lời chúc chưa đúng. Chủ trang kiểm tra lại cấu hình nhé.');
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --bg: #280a17;
+        --surface: #361425;
+        --fg: #fbe8ec;
+        --muted: #c79aa8;
+        --accent: #f27ca2;
+        --accent-fg: #2a0a17;
+        --gold: #e6bc63;
+        --line: #552838;
       }
-      return data.wish;
-    } catch (error) {
-      if (error.name === 'AbortError' || error instanceof TypeError) {
-        throw new Error('Kết nối đang chậm hoặc bị ngắt. Bạn thử lại nhé.');
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.6;
+      padding-top: max(28px, env(safe-area-inset-top, 0px));
+      padding-bottom: max(40px, env(safe-area-inset-bottom, 0px));
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+    }
+
+    .wrap {
+      max-width: 440px;
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(34px, 10vw, 46px);
+      line-height: 1.12;
+      margin: 6px 0 0;
+      text-wrap: balance;
+    }
+
+    h1 em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .stage {
+      display: flex;
+      justify-content: center;
+      padding-block: 4px;
+    }
+
+    .box {
+      width: min(100%, 260px);
+      height: auto;
+      cursor: pointer;
+      overflow: visible;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .box:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 6px;
+      border-radius: 8px;
+    }
+
+    .lid {
+      transform-box: fill-box;
+      transform-origin: 0% 100%;
+      transition: transform 0.55s cubic-bezier(0.3, 1.4, 0.5, 1);
+    }
+
+    .box.open .lid {
+      transform: translate(-14px, -52px) rotate(-14deg);
+    }
+
+    .box:not(.open) {
+      animation: nudge 3.2s ease-in-out infinite;
+    }
+
+    @keyframes nudge {
+      0%, 88%, 100% { transform: rotate(0); }
+      92% { transform: rotate(-2.5deg); }
+      96% { transform: rotate(2.5deg); }
+    }
+
+    .glow {
+      opacity: 0;
+      transition: opacity 0.4s 0.1s;
+    }
+
+    .box.open .glow {
+      opacity: 1;
+    }
+
+    .who {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .who label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .who input {
+      font: inherit;
+      color: var(--fg);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 11px 14px;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .who input:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 1px;
+    }
+
+    .btn {
+      font: inherit;
+      font-weight: 600;
+      border-radius: 999px;
+      border: 1.5px solid var(--accent);
+      padding: 13px 22px;
+      cursor: pointer;
+      background: var(--accent);
+      color: var(--accent-fg);
+      transition: transform 0.15s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .btn:disabled {
+      cursor: wait;
+      opacity: 0.7;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      animation: rise 0.55s 0.25s both cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
       }
-      throw error;
-    } finally { clearTimeout(timer); }
-  }
-
-  async function show() {
-    var w;
-    try { w = await pick(); }
-    catch (err) {
-      $('status').textContent = err.message || 'Mất kết nối. Bạn thử lại nhé.';
-      busy = false;
-      openBtn.disabled = false;
-      return;
-    }
-    $('status').textContent = '';
-    var nm = nameInput.value.trim();
-    $('tag').textContent = w[0];
-    $('to').textContent = 'Gửi ' + (nm || 'bạn') + ',';
-    $('wish').textContent = w[1];
-    $('note').textContent = '';
-    card.hidden = false;
-    card.style.animation = 'none';
-    void card.offsetWidth;
-    card.style.animation = '';
-    burst();
-    openBtn.hidden = true;
-    busy = false;
-    opened = true;
-    box.removeAttribute('role');
-    box.removeAttribute('tabindex');
-    box.setAttribute('aria-label', 'Hộp quà đã mở');
-    box.style.cursor = 'default';
-    openBtn.disabled = false;
-  }
-
-  function openBox() {
-    if (busy || opened) return;
-    busy = true;
-    openBtn.disabled = true;
-    $('status').textContent = 'Đang mở lời chúc…';
-    if (box.classList.contains('open')) {
-      box.classList.remove('open');
-      setTimeout(function () { box.classList.add('open'); show(); }, reduce ? 0 : 380);
-    } else {
-      box.classList.add('open');
-      setTimeout(show, reduce ? 0 : 300);
-    }
-  }
-
-  openBtn.addEventListener('click', openBox);
-  box.addEventListener('click', openBox);
-  box.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBox(); }
-  });
-
-  // Cánh hoa rơi, chạy khoảng 4 giây rồi dừng
-  var cv = $('petals'), ctx = cv.getContext && cv.getContext('2d'), raf = 0;
-  function burst() {
-    if (reduce || !ctx) return;
-    cancelAnimationFrame(raf);
-    var dpr = window.devicePixelRatio || 1;
-    var W = cv.width = innerWidth * dpr, H = cv.height = innerHeight * dpr;
-    var cs = getComputedStyle(document.documentElement);
-    var cols = [cs.getPropertyValue('--accent').trim(), cs.getPropertyValue('--gold').trim(), '#f7b4c8'];
-    var ps = [];
-    for (var i = 0; i < 46; i++) {
-      ps.push({
-        x: (0.5 + (Math.random() - 0.5) * 0.5) * W,
-        y: H * 0.28,
-        vx: (Math.random() - 0.5) * 7 * dpr,
-        vy: -(Math.random() * 5 + 2) * dpr,
-        s: (Math.random() * 6 + 6) * dpr,
-        r: Math.random() * 6.28,
-        vr: (Math.random() - 0.5) * 0.2,
-        c: cols[i % 3]
-      });
-    }
-    var t0 = performance.now();
-    (function tick(now) {
-      var t = now - t0;
-      ctx.clearRect(0, 0, W, H);
-      for (var k = 0; k < ps.length; k++) {
-        var p = ps[k];
-        p.vy += 0.16 * dpr;
-        p.vx *= 0.99;
-        p.x += p.vx + Math.sin((p.y / dpr) * 0.03 + k) * 0.8 * dpr;
-        p.y += p.vy;
-        p.r += p.vr;
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.r);
-        ctx.globalAlpha = Math.max(0, 1 - t / 4200);
-        ctx.fillStyle = p.c;
-        ctx.beginPath();
-        ctx.ellipse(0, 0, p.s, p.s * 0.55, 0, 0, 6.2832);
-        ctx.fill();
-        ctx.restore();
+      to {
+        opacity: 1;
+        transform: none;
       }
-      if (t < 4200) raf = requestAnimationFrame(tick);
-      else ctx.clearRect(0, 0, W, H);
-    })(t0);
-  }
-})();
-</script>
+    }
 
-</body>
-<style>
-.bouquet { margin: 6px 0 0; }
-.bouquet-art { display: block; width: 100%; height: auto; }
-.bouquet-title { font-family: var(--display); font-style: italic; font-size: 21px; line-height: 1.4; color: var(--accent); text-align: center; margin: 14px 0 5px; overflow-wrap: anywhere; }
-.bouquet-caption { color: var(--muted); font-size: 12px; text-align: center; margin: 0; }
-.bouquet-letters { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
-.bouquet-letters span { border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; font-size: 11px; display: inline-flex; align-items: center; gap: 5px; }
-.bouquet-letters span::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--flower-color); }
+    .tag {
+      align-self: flex-start;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 2px 10px;
+    }
 
-</style>
-<script>
-(function () {
-  if (document.getElementById('bouquet-picture')) return;
-  var $ = function (id) { return document.getElementById(id); };
-  var card = $('card'), wish = $('wish'), nameInput = $('name');
-  if (!card || !wish || !nameInput) return;
-  var figure = document.createElement('figure');
-  figure.className = 'bouquet';
-  figure.innerHTML = '<div id="bouquet-picture"></div><figcaption><p id="bouquet-title" class="bouquet-title"></p><p id="bouquet-caption" class="bouquet-caption"></p><div id="bouquet-letters" class="bouquet-letters" aria-label="Các chữ cái tạo nên bó hoa"></div></figcaption>';
-  wish.insertAdjacentElement('afterend', figure);
-  // One flower per Latin letter; Vietnamese diacritics share the base letter.
-  function bouquetForName(name) {
-    var letters = name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').toUpperCase().replace(/[^A-Z]/g, '').slice(0, 24);
-    var fallback = !letters;
-    if (fallback) letters = 'FLOWER';
-    var seed = 2166136261;
-    for (var k = 0; k < letters.length; k++) seed = Math.imul(seed ^ letters.charCodeAt(k), 16777619);
-    function rand() { seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5; return (seed >>> 0) / 4294967296; }
-    var colors = ['#e7a0ad', '#e6b963', '#b8a6d5', '#e59678', '#90b8cf', '#c58cac', '#e6c5bc'];
-    var green = '#62866b', ink = '#82646b';
-    var stems = '', flowers = '', legend = [];
-    function flower(type, color) {
-      var s = '<g fill="' + color + '" stroke="' + ink + '" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round">';
-      if (type === 0) {
-        // Daisy, individually tilted petals.
-        for (var p = 0; p < 9; p++) s += '<ellipse cx="0" cy="-12" rx="4.7" ry="10" transform="rotate(' + (p * 40 + rand() * 5) + ')"/>';
-        s += '<circle r="6" fill="#e2b954"/><path d="M-3 -1l1 1m4-2l-1 2m-1 2l1 1" fill="none"/>';
-      } else if (type === 1) {
-        s += '<path d="M-17 -13 Q-23 13 0 20 Q22 12 17 -14 L8 -6 L0 -19 L-7 -6 Z"/><path d="M-7 -6Q-8 12 0 20 M8 -6Q9 10 0 20" fill="none"/>';
-      } else if (type === 2) {
-        s += '<path d="M0 -20 C9 -25 20 -15 17 -8 C27 -2 20 12 12 13 C9 24 -6 24 -10 16 C-24 16 -26 1 -17 -6 C-19 -17 -8 -24 0 -20Z"/><path d="M-10 -6 Q0 -17 10 -6 Q16 6 2 12 Q-11 14 -12 2 Q-10 -7 1 -7 Q10 -5 6 3 Q1 9 -4 2 Q-7 -3 1 -2" fill="none"/>';
-      } else if (type === 3) {
-        for (var p = 0; p < 5; p++) s += '<path d="M0 3 C-22 -5 -14 -25 -3 -19 Q4 -23 8 -14 Q12 -4 0 3Z" transform="rotate(' + p * 72 + ')"/>';
-        s += '<circle r="4.5" fill="#efce7a"/>';
-      } else if (type === 4) {
-        s += '<path d="M0 14Q-5 -6 0 -29" fill="none" stroke="#62866b"/>';
-        for (var p = 0; p < 5; p++) {
-          s += '<ellipse cx="-5" cy="' + (-p * 7) + '" rx="5" ry="6" transform="rotate(-25 -5 ' + (-p * 7) + ')"/><ellipse cx="5" cy="' + (-p * 7 - 3) + '" rx="5" ry="6" transform="rotate(25 5 ' + (-p * 7 - 3) + ')"/>';
+    .to {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 19px;
+      color: var(--accent);
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .wish {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(21px, 6vw, 25px);
+      line-height: 1.45;
+      margin: 0;
+      white-space: pre-line;
+      text-wrap: pretty;
+      overflow-wrap: anywhere;
+    }
+
+    .sign {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    .note {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      min-height: 1.4em;
+    }
+
+    #privacy-note {
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .bouquet {
+      margin: 6px 0 0;
+    }
+
+    .bouquet-art {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .bouquet-title {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 21px;
+      line-height: 1.4;
+      color: var(--accent);
+      text-align: center;
+      margin: 14px 0 5px;
+      overflow-wrap: anywhere;
+    }
+
+    .bouquet-caption {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      margin: 0;
+    }
+
+    .bouquet-letters {
+      display: none !important;
+    }
+
+    canvas.petals {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .box:not(.open) {
+        animation: none;
+      }
+
+      .lid, .glow {
+        transition: none;
+      }
+
+      .card {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">Ngày Phụ nữ Việt Nam · 20.10</div>
+      <h1>
+        Một hộp quà, <em>một lời chúc</em> dành riêng cho bạn
+      </h1>
+    </header>
+
+    <div class="stage">
+      <svg
+        id="box"
+        class="box"
+        viewBox="0 0 240 230"
+        role="button"
+        tabindex="0"
+        aria-label="Mở hộp quà"
+      >
+        <ellipse
+          cx="120" cy="214" rx="86" ry="9"
+          fill="var(--fg)" opacity="0.12"
+        />
+
+        <g class="glow" aria-hidden="true">
+          <path
+            d="M120 96 L96 40 M120 96 L120 22 M120 96 L146 38 M120 96 L72 62 M120 96 L170 60"
+            stroke="var(--gold)"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+        </g>
+
+        <rect
+          x="40" y="104" width="160" height="104"
+          rx="6" fill="var(--accent)"
+        />
+        <rect
+          x="40" y="104" width="160" height="14"
+          fill="var(--fg)" opacity="0.18"
+        />
+        <rect
+          x="108" y="104" width="24" height="104"
+          fill="var(--gold)"
+        />
+
+        <g class="lid">
+          <rect
+            x="30" y="76" width="180" height="34"
+            rx="6" fill="var(--accent)"
+          />
+          <rect
+            x="30" y="100" width="180" height="10"
+            rx="3" fill="var(--fg)" opacity="0.2"
+          />
+          <rect
+            x="108" y="76" width="24" height="34"
+            fill="var(--gold)"
+          />
+          <path
+            d="M120 76 C96 40 62 52 82 72 C94 82 112 78 120 76 Z"
+            fill="var(--gold)"
+          />
+          <path
+            d="M120 76 C144 40 178 52 158 72 C146 82 128 78 120 76 Z"
+            fill="var(--gold)"
+          />
+          <path
+            d="M120 76 C100 56 82 58 90 70"
+            fill="none" stroke="var(--bg)"
+            stroke-width="2" opacity="0.5"
+          />
+          <path
+            d="M120 76 C140 56 158 58 150 70"
+            fill="none" stroke="var(--bg)"
+            stroke-width="2" opacity="0.5"
+          />
+          <circle
+            cx="120" cy="76" r="8"
+            fill="var(--gold)"
+            stroke="var(--bg)"
+            stroke-width="2"
+          />
+        </g>
+      </svg>
+    </div>
+
+    <div class="who">
+      <label for="name">Tên của bạn</label>
+      <input
+        id="name"
+        type="text"
+        maxlength="24"
+        autocomplete="given-name"
+        aria-describedby="privacy-note"
+      >
+      <p id="privacy-note" class="note">
+        Khi mở hộp, tên bạn nhập, lời chúc và thời gian mở
+        sẽ được lưu để người gửi quà xem.
+      </p>
+    </div>
+
+    <button id="open" class="btn" type="button">
+      Mở hộp quà
+    </button>
+
+    <p
+      id="status"
+      class="note"
+      role="status"
+      aria-live="polite"
+    ></p>
+
+    <section id="card" class="card" hidden aria-live="polite">
+      <span id="tag" class="tag"></span>
+      <p id="to" class="to"></p>
+      <p id="wish" class="wish"></p>
+
+      <figure class="bouquet">
+        <div id="bouquet-picture"></div>
+        <figcaption>
+          <p id="bouquet-title" class="bouquet-title"></p>
+          <p id="bouquet-caption" class="bouquet-caption"></p>
+        </figcaption>
+      </figure>
+
+      <p class="sign">Chúc mừng ngày 20/10.</p>
+    </section>
+  </main>
+
+  <canvas id="petals" class="petals" aria-hidden="true"></canvas>
+
+  <script src="./config.js"></script>
+
+  <script>
+    (function () {
+      var $ = function (id) {
+        return document.getElementById(id);
+      };
+
+      var box = $('box');
+      var openBtn = $('open');
+      var card = $('card');
+      var nameInput = $('name');
+
+      var busy = false;
+      var opened = false;
+
+      var reduce = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      try {
+        var h = decodeURIComponent(location.hash.slice(1))
+          .replace(/[._~-]+/g, ' ')
+          .trim();
+
+        if (h) {
+          nameInput.value = (
+            h.charAt(0).toUpperCase() + h.slice(1)
+          ).slice(0, 24);
         }
-      } else {
-        for (var p = 0; p < 6; p++) s += '<path d="M0 0 Q-11 -10 0 -23 Q11 -10 0 0Z" transform="rotate(' + p * 60 + ')"/>';
-        s += '<circle r="4" fill="#e6bd60"/>';
+      } catch (e) {}
+
+      function bouquetForName(name) {
+        var letters = name
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/[đĐ]/g, 'd')
+          .toUpperCase()
+          .replace(/[^A-Z]/g, '')
+          .slice(0, 24);
+
+        var fallback = !letters;
+
+        if (fallback) {
+          letters = 'FLOWER';
+        }
+
+        var seed = 2166136261;
+
+        for (var k = 0; k < letters.length; k++) {
+          seed = Math.imul(
+            seed ^ letters.charCodeAt(k),
+            16777619
+          );
+        }
+
+        function rand() {
+          seed ^= seed << 13;
+          seed ^= seed >>> 17;
+          seed ^= seed << 5;
+          return (seed >>> 0) / 4294967296;
+        }
+
+        var colors = [
+          '#e7a0ad',
+          '#e6b963',
+          '#b8a6d5',
+          '#e59678',
+          '#90b8cf',
+          '#c58cac',
+          '#e6c5bc'
+        ];
+
+        var green = '#62866b';
+        var ink = '#82646b';
+        var stems = '';
+        var flowers = '';
+
+        function flower(type, color) {
+          var s =
+            '<g fill="' + color + '" stroke="' + ink + '"' +
+            ' stroke-width="0.9" stroke-linecap="round"' +
+            ' stroke-linejoin="round">';
+
+          var p;
+
+          if (type === 0) {
+            for (p = 0; p < 9; p++) {
+              s +=
+                '<ellipse cx="0" cy="-12" rx="4.7" ry="10"' +
+                ' transform="rotate(' +
+                (p * 40 + rand() * 5) + ')"/>';
+            }
+
+            s +=
+              '<circle r="6" fill="#e2b954"/>' +
+              '<path d="M-3 -1l1 1m4-2l-1 2m-1 2l1 1"' +
+              ' fill="none"/>';
+
+          } else if (type === 1) {
+            s +=
+              '<path d="M-17 -13 Q-23 13 0 20 Q22 12 17 -14' +
+              ' L8 -6 L0 -19 L-7 -6 Z"/>' +
+              '<path d="M-7 -6Q-8 12 0 20 M8 -6Q9 10 0 20"' +
+              ' fill="none"/>';
+
+          } else if (type === 2) {
+            s +=
+              '<path d="M0 -20 C9 -25 20 -15 17 -8' +
+              ' C27 -2 20 12 12 13 C9 24 -6 24 -10 16' +
+              ' C-24 16 -26 1 -17 -6 C-19 -17 -8 -24 0 -20Z"/>' +
+              '<path d="M-10 -6 Q0 -17 10 -6 Q16 6 2 12' +
+              ' Q-11 14 -12 2 Q-10 -7 1 -7 Q10 -5 6 3' +
+              ' Q1 9 -4 2 Q-7 -3 1 -2" fill="none"/>';
+
+          } else if (type === 3) {
+            for (p = 0; p < 5; p++) {
+              s +=
+                '<path d="M0 3 C-22 -5 -14 -25 -3 -19' +
+                ' Q4 -23 8 -14 Q12 -4 0 3Z"' +
+                ' transform="rotate(' + p * 72 + ')"/>';
+            }
+
+            s += '<circle r="4.5" fill="#efce7a"/>';
+
+          } else if (type === 4) {
+            s +=
+              '<path d="M0 14Q-5 -6 0 -29"' +
+              ' fill="none" stroke="#62866b"/>';
+
+            for (p = 0; p < 5; p++) {
+              s +=
+                '<ellipse cx="-5" cy="' + (-p * 7) + '"' +
+                ' rx="5" ry="6" transform="rotate(-25 -5 ' +
+                (-p * 7) + ')"/>' +
+                '<ellipse cx="5" cy="' + (-p * 7 - 3) + '"' +
+                ' rx="5" ry="6" transform="rotate(25 5 ' +
+                (-p * 7 - 3) + ')"/>';
+            }
+
+          } else {
+            for (p = 0; p < 6; p++) {
+              s +=
+                '<path d="M0 0 Q-11 -10 0 -23 Q11 -10 0 0Z"' +
+                ' transform="rotate(' + p * 60 + ')"/>';
+            }
+
+            s += '<circle r="4" fill="#e6bd60"/>';
+          }
+
+          return s + '</g>';
+        }
+
+        var n = letters.length;
+        var rows = Math.ceil(n / 8);
+        var offset = 0;
+
+        for (var row = 0; row < rows; row++) {
+          var count = Math.min(8, n - offset);
+
+          for (var col = 0; col < count; col++) {
+            var letter = letters[offset++];
+            var code = letter.charCodeAt(0) - 65;
+
+            var span = Math.min(220, 58 * (count - 1));
+
+            var x = 180 +
+              (count === 1 ? 0 : (col / (count - 1) - 0.5) * span) +
+              (rand() - 0.5) * 9;
+
+            var y = 96 +
+              row * 42 +
+              Math.abs(x - 180) * 0.25 +
+              (rand() - 0.5) * 14;
+
+            if (n <= 4) {
+              y += (col % 2) * 22;
+            }
+
+            var color = colors[code % colors.length];
+            var type = code % 6;
+
+            stems +=
+              '<path d="M' + x + ' ' + y +
+              ' Q' + (x + (180 - x) * 0.25) +
+              ' 235 ' + (177 + rand() * 8) +
+              ' 310" fill="none" stroke="' + green +
+              '" stroke-width="2"/>';
+
+            var lx = x + (180 - x) * 0.37;
+            var ly = y + (290 - y) * 0.45;
+
+            stems +=
+              '<path d="M' + lx + ' ' + ly +
+              'q-28 -30 -33 -10q8 21 33 10' +
+              'm0 8q27 -29 31 -9q-9 19 -31 9"' +
+              ' fill="#a9b99a" stroke="' + green +
+              '" stroke-width="1"/>';
+
+            var scale = n > 16 ? 0.79 : n > 8 ? 0.9 : 1.08;
+
+            flowers +=
+              '<g transform="translate(' + x + ' ' + y +
+              ') rotate(' + ((rand() - 0.5) * 26) +
+              ') scale(' + scale + ')">' +
+              flower(type, color) + '</g>';
+          }
+        }
+
+        var svg =
+          '<svg xmlns="http://www.w3.org/2000/svg"' +
+          ' viewBox="0 0 360 400" role="img"' +
+          ' aria-label="Bó hoa vẽ tay kết từ các chữ cái trong tên"' +
+          ' class="bouquet-art">' +
+
+          '<rect width="360" height="400" rx="22" fill="#fffaf2"/>' +
+
+          '<ellipse cx="180" cy="352" rx="72" ry="8"' +
+          ' fill="#dac8b3" opacity=".2"/>' +
+
+          '<g fill="#e7cc9d" opacity=".6">' +
+          '<circle cx="48" cy="87" r="2"/>' +
+          '<circle cx="311" cy="148" r="2"/>' +
+          '<circle cx="282" cy="53" r="2"/>' +
+          '</g>' +
+
+          '<path d="M64 195 Q162 214 292 187 L212 353' +
+          ' Q184 364 157 350Z" fill="#e9d6b9"' +
+          ' stroke="#b9a68d" stroke-width="1.2"/>' +
+
+          stems + flowers +
+
+          '<path d="M64 195 Q113 218 183 278 L210 353 L157 350Z"' +
+          ' fill="#f2e5cf" fill-opacity=".95"' +
+          ' stroke="#b9a68d" stroke-width="1.1"/>' +
+
+          '<path d="M292 187 Q263 254 182 277 L157 350' +
+          ' Q181 362 212 353Z" fill="#f8edda" fill-opacity=".95"' +
+          ' stroke="#b9a68d" stroke-width="1.1"/>' +
+
+          '<path d="M83 221L156 335M272 217Q230 279 202 335"' +
+          ' fill="none" stroke="#cbb99f" stroke-width="1"/>' +
+
+          '<g fill="#d990a0" stroke="#a86e7e" stroke-width="1.3">' +
+          '<path d="M183 296C131 255 123 316 179 302' +
+          'C223 263 237 315 186 303Z"/>' +
+          '<path d="M178 303Q169 327 147 340L162 340L167 352' +
+          'Q183 328 184 305M188 303Q193 326 218 337L207 339' +
+          'L206 350Q187 331 182 304"/>' +
+          '<ellipse cx="183" cy="301" rx="7" ry="5"/>' +
+          '</g></svg>';
+
+        return {
+          svg: svg,
+          fallback: fallback
+        };
       }
-      return s + '</g>';
-    }
-    var n = letters.length, rows = Math.ceil(n / 8), offset = 0;
-    for (var row = 0; row < rows; row++) {
-      var count = Math.min(8, n - offset);
-      for (var col = 0; col < count; col++) {
-        var letter = letters[offset++], code = letter.charCodeAt(0) - 65;
-        var span = Math.min(220, 58 * (count - 1));
-        var x = 180 + (count === 1 ? 0 : (col / (count - 1) - 0.5) * span) + (rand() - 0.5) * 9;
-        var y = 96 + row * 42 + Math.abs(x - 180) * 0.25 + (rand() - 0.5) * 14;
-        if (n <= 4) y += (col % 2) * 22;
-        var color = colors[code % colors.length], type = code % 6;
-        stems += '<path d="M' + x + ' ' + y + ' Q' + (x + (180 - x) * 0.25) + ' 235 ' + (177 + rand() * 8) + ' 310" fill="none" stroke="' + green + '" stroke-width="2"/>';
-        var lx = x + (180 - x) * 0.37, ly = y + (290 - y) * 0.45;
-        stems += '<path d="M' + lx + ' ' + ly + 'q-28 -30 -33 -10q8 21 33 10m0 8q27 -29 31 -9q-9 19 -31 9" fill="#a9b99a" stroke="' + green + '" stroke-width="1"/>';
-        flowers += '<g transform="translate(' + x + ' ' + y + ') rotate(' + ((rand() - 0.5) * 26) + ') scale(' + (n > 16 ? 0.79 : n > 8 ? 0.9 : 1.08) + ')">' + flower(type, color) + '</g>';
-        if (!legend.some(function (entry) { return entry.letter === letter; })) legend.push({ letter: letter, color: color, type: type });
+
+      function renderBouquet(name) {
+        var result = bouquetForName(name);
+
+        $('bouquet-picture').innerHTML = result.svg;
+
+        $('bouquet-title').textContent = name
+          ? 'Một bó hoa dành cho ' + name
+          : 'Một bó hoa dành cho bạn';
+
+        $('bouquet-caption').textContent = result.fallback
+          ? 'Một chút hoa, một chút thương gửi bạn.'
+          : 'Mỗi chữ cái trong tên, một bông hoa nhỏ.';
       }
-    }
-    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 400" role="img" aria-label="Bó hoa vẽ tay kết từ các chữ cái trong tên" class="bouquet-art">' +
-      '<rect width="360" height="400" rx="22" fill="#fffaf2"/>' +
-      '<ellipse cx="180" cy="352" rx="72" ry="8" fill="#dac8b3" opacity=".2"/>' +
-      '<g fill="#e7cc9d" opacity=".6"><circle cx="48" cy="87" r="2"/><circle cx="311" cy="148" r="2"/><circle cx="282" cy="53" r="2"/></g>' +
-      '<path d="M64 195 Q162 214 292 187 L212 353 Q184 364 157 350Z" fill="#e9d6b9" stroke="#b9a68d" stroke-width="1.2"/>' +
-      stems + flowers +
-      '<path d="M64 195 Q113 218 183 278 L210 353 L157 350Z" fill="#f2e5cf" fill-opacity=".95" stroke="#b9a68d" stroke-width="1.1"/>' +
-      '<path d="M292 187 Q263 254 182 277 L157 350 Q181 362 212 353Z" fill="#f8edda" fill-opacity=".95" stroke="#b9a68d" stroke-width="1.1"/>' +
-      '<path d="M83 221L156 335M272 217Q230 279 202 335" fill="none" stroke="#cbb99f" stroke-width="1"/>' +
-      '<g fill="#d990a0" stroke="#a86e7e" stroke-width="1.3"><path d="M183 296C131 255 123 316 179 302C223 263 237 315 186 303Z"/><path d="M178 303Q169 327 147 340L162 340L167 352Q183 328 184 305M188 303Q193 326 218 337L207 339L206 350Q187 331 182 304"/><ellipse cx="183" cy="301" rx="7" ry="5"/></g></svg>';
-    return { svg: svg, letters: letters, fallback: fallback, legend: legend };
-  }
 
-  function renderBouquet(name) {
-    var result = bouquetForName(name);
-    $('bouquet-picture').innerHTML = result.svg;
-    $('bouquet-title').textContent = name ? 'Một bó hoa dành cho ' + name : 'Một bó hoa dành cho bạn';
-    $('bouquet-caption').textContent = result.fallback ? 'Một chút hoa, một chút thương gửi bạn.' : 'Mỗi chữ cái trong tên, một bông hoa nhỏ.';
-    var legend = $('bouquet-letters');
-    legend.replaceChildren();
-    if (!result.fallback) result.legend.forEach(function (entry) {
-      var chip = document.createElement('span');
-      chip.textContent = entry.letter;
-      chip.style.setProperty('--flower-color', entry.color);
-      legend.appendChild(chip);
-    });
-  }
+      async function pick(visitorName) {
+        var config = window.GIFT_CONFIG || {};
+        var url = (config.supabaseUrl || '')
+          .trim()
+          .replace(/\/+$/, '');
 
-  function update() {
-    if (!card.hidden) renderBouquet(nameInput.value.trim());
-  }
-  new MutationObserver(update).observe(card, { attributes: true, attributeFilter: ['hidden'] });
-  update();
-})();
-</script>
+        var key = (config.publishableKey || '').trim();
 
+        if (
+          !/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(url) ||
+          !key.startsWith('sb_publishable_')
+        ) {
+          throw new Error(
+            'Trang chưa kết nối dữ liệu. Chủ trang cần điền config.js trước nhé.'
+          );
+        }
+
+        var controller = new AbortController();
+
+        var timer = setTimeout(function () {
+          controller.abort();
+        }, 20000);
+
+        try {
+          var response = await fetch(
+            url + '/rest/v1/rpc/draw_gift_wish_logged',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                apikey: key
+              },
+              body: JSON.stringify({
+                p_name: visitorName
+              }),
+              signal: controller.signal
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(
+              'Chưa lấy được lời chúc. Bạn thử lại sau một chút nhé.'
+            );
+          }
+
+          var data = await response.json();
+
+          if (
+            !Array.isArray(data.wish) ||
+            data.wish.length !== 2 ||
+            data.wish.some(function (v) {
+              return typeof v !== 'string';
+            })
+          ) {
+            throw new Error(
+              'Dữ liệu lời chúc chưa đúng. Chủ trang kiểm tra lại cấu hình nhé.'
+            );
+          }
+
+          return data.wish;
+
+        } catch (error) {
+          if (
+            error.name === 'AbortError' ||
+            error instanceof TypeError
+          ) {
+            throw new Error(
+              'Kết nối đang chậm hoặc bị ngắt. Bạn thử lại nhé.'
+            );
+          }
+
+          throw error;
+
+        } finally {
+          clearTimeout(timer);
+        }
+      }
+
+      async function show() {
+        var w;
+        var nm = nameInput.value.trim().slice(0, 24);
+
+        try {
+          w = await pick(nm);
+
+        } catch (err) {
+          $('status').textContent =
+            err.message || 'Mất kết nối. Bạn thử lại nhé.';
+
+          busy = false;
+          openBtn.disabled = false;
+          nameInput.disabled = false;
+          return;
+        }
+
+        $('status').textContent = '';
+        $('tag').textContent = w[0];
+        $('to').textContent = 'Gửi ' + (nm || 'bạn') + ',';
+        $('wish').textContent = w[1];
+
+        renderBouquet(nm);
+
+        card.hidden = false;
+        card.style.animation = 'none';
+        void card.offsetWidth;
+        card.style.animation = '';
+
+        burst();
+
+        openBtn.hidden = true;
+        busy = false;
+        opened = true;
+
+        box.removeAttribute('role');
+        box.removeAttribute('tabindex');
+        box.setAttribute('aria-label', 'Hộp quà đã mở');
+        box.style.cursor = 'default';
+      }
+
+      function openBox() {
+        if (busy || opened) return;
+
+        busy = true;
+        openBtn.disabled = true;
+        nameInput.disabled = true;
+
+        $('status').textContent = 'Đang mở lời chúc…';
+
+        if (box.classList.contains('open')) {
+          box.classList.remove('open');
+
+          setTimeout(function () {
+            box.classList.add('open');
+            show();
+          }, reduce ? 0 : 380);
+
+        } else {
+          box.classList.add('open');
+          setTimeout(show, reduce ? 0 : 300);
+        }
+      }
+
+      openBtn.addEventListener('click', openBox);
+      box.addEventListener('click', openBox);
+
+      box.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openBox();
+        }
+      });
+
+      var cv = $('petals');
+      var ctx = cv.getContext && cv.getContext('2d');
+      var raf = 0;
+
+      function burst() {
+        if (reduce || !ctx) return;
+
+        cancelAnimationFrame(raf);
+
+        var dpr = window.devicePixelRatio || 1;
+        var W = cv.width = innerWidth * dpr;
+        var H = cv.height = innerHeight * dpr;
+
+        var cs = getComputedStyle(document.documentElement);
+
+        var cols = [
+          cs.getPropertyValue('--accent').trim(),
+          cs.getPropertyValue('--gold').trim(),
+          '#f7b4c8'
+        ];
+
+        var ps = [];
+
+        for (var i = 0; i < 46; i++) {
+          ps.push({
+            x: (0.5 + (Math.random() - 0.5) * 0.5) * W,
+            y: H * 0.28,
+            vx: (Math.random() - 0.5) * 7 * dpr,
+            vy: -(Math.random() * 5 + 2) * dpr,
+            s: (Math.random() * 6 + 6) * dpr,
+            r: Math.random() * 6.28,
+            vr: (Math.random() - 0.5) * 0.2,
+            c: cols[i % 3]
+          });
+        }
+
+        var t0 = performance.now();
+
+        (function tick(now) {
+          var t = now - t0;
+
+          ctx.clearRect(0, 0, W, H);
+
+          for (var k = 0; k < ps.length; k++) {
+            var p = ps[k];
+
+            p.vy += 0.16 * dpr;
+            p.vx *= 0.99;
+
+            p.x += p.vx +
+              Math.sin((p.y / dpr) * 0.03 + k) * 0.8 * dpr;
+
+            p.y += p.vy;
+            p.r += p.vr;
+
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.r);
+
+            ctx.globalAlpha = Math.max(0, 1 - t / 4200);
+            ctx.fillStyle = p.c;
+
+            ctx.beginPath();
+            ctx.ellipse(
+              0, 0,
+              p.s, p.s * 0.55,
+              0, 0, Math.PI * 2
+            );
+            ctx.fill();
+            ctx.restore();
+          }
+
+          if (t < 4200) {
+            raf = requestAnimationFrame(tick);
+          } else {
+            ctx.clearRect(0, 0, W, H);
+          }
+        })(t0);
+      }
+    })();
+  </script>
+</body>
 </html>
