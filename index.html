@@ -352,4 +352,113 @@ canvas.petals { position: fixed; inset: 0; width: 100%; height: 100%; pointer-ev
 })();
 </script>
 
-</body></html>
+</body>
+<style>
+.bouquet { margin: 6px 0 0; }
+.bouquet-art { display: block; width: 100%; height: auto; }
+.bouquet-title { font-family: var(--display); font-style: italic; font-size: 21px; line-height: 1.4; color: var(--accent); text-align: center; margin: 14px 0 5px; overflow-wrap: anywhere; }
+.bouquet-caption { color: var(--muted); font-size: 12px; text-align: center; margin: 0; }
+.bouquet-letters { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
+.bouquet-letters span { border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; font-size: 11px; display: inline-flex; align-items: center; gap: 5px; }
+.bouquet-letters span::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--flower-color); }
+
+</style>
+<script>
+(function () {
+  if (document.getElementById('bouquet-picture')) return;
+  var $ = function (id) { return document.getElementById(id); };
+  var card = $('card'), wish = $('wish'), nameInput = $('name');
+  if (!card || !wish || !nameInput) return;
+  var figure = document.createElement('figure');
+  figure.className = 'bouquet';
+  figure.innerHTML = '<div id="bouquet-picture"></div><figcaption><p id="bouquet-title" class="bouquet-title"></p><p id="bouquet-caption" class="bouquet-caption"></p><div id="bouquet-letters" class="bouquet-letters" aria-label="Các chữ cái tạo nên bó hoa"></div></figcaption>';
+  wish.insertAdjacentElement('afterend', figure);
+  // One flower per Latin letter; Vietnamese diacritics share the base letter.
+  function bouquetForName(name) {
+    var letters = name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').toUpperCase().replace(/[^A-Z]/g, '').slice(0, 24);
+    var fallback = !letters;
+    if (fallback) letters = 'FLOWER';
+    var seed = 2166136261;
+    for (var k = 0; k < letters.length; k++) seed = Math.imul(seed ^ letters.charCodeAt(k), 16777619);
+    function rand() { seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5; return (seed >>> 0) / 4294967296; }
+    var colors = ['#e7a0ad', '#e6b963', '#b8a6d5', '#e59678', '#90b8cf', '#c58cac', '#e6c5bc'];
+    var green = '#62866b', ink = '#82646b';
+    var stems = '', flowers = '', legend = [];
+    function flower(type, color) {
+      var s = '<g fill="' + color + '" stroke="' + ink + '" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round">';
+      if (type === 0) {
+        // Daisy, individually tilted petals.
+        for (var p = 0; p < 9; p++) s += '<ellipse cx="0" cy="-12" rx="4.7" ry="10" transform="rotate(' + (p * 40 + rand() * 5) + ')"/>';
+        s += '<circle r="6" fill="#e2b954"/><path d="M-3 -1l1 1m4-2l-1 2m-1 2l1 1" fill="none"/>';
+      } else if (type === 1) {
+        s += '<path d="M-17 -13 Q-23 13 0 20 Q22 12 17 -14 L8 -6 L0 -19 L-7 -6 Z"/><path d="M-7 -6Q-8 12 0 20 M8 -6Q9 10 0 20" fill="none"/>';
+      } else if (type === 2) {
+        s += '<path d="M0 -20 C9 -25 20 -15 17 -8 C27 -2 20 12 12 13 C9 24 -6 24 -10 16 C-24 16 -26 1 -17 -6 C-19 -17 -8 -24 0 -20Z"/><path d="M-10 -6 Q0 -17 10 -6 Q16 6 2 12 Q-11 14 -12 2 Q-10 -7 1 -7 Q10 -5 6 3 Q1 9 -4 2 Q-7 -3 1 -2" fill="none"/>';
+      } else if (type === 3) {
+        for (var p = 0; p < 5; p++) s += '<path d="M0 3 C-22 -5 -14 -25 -3 -19 Q4 -23 8 -14 Q12 -4 0 3Z" transform="rotate(' + p * 72 + ')"/>';
+        s += '<circle r="4.5" fill="#efce7a"/>';
+      } else if (type === 4) {
+        s += '<path d="M0 14Q-5 -6 0 -29" fill="none" stroke="#62866b"/>';
+        for (var p = 0; p < 5; p++) {
+          s += '<ellipse cx="-5" cy="' + (-p * 7) + '" rx="5" ry="6" transform="rotate(-25 -5 ' + (-p * 7) + ')"/><ellipse cx="5" cy="' + (-p * 7 - 3) + '" rx="5" ry="6" transform="rotate(25 5 ' + (-p * 7 - 3) + ')"/>';
+        }
+      } else {
+        for (var p = 0; p < 6; p++) s += '<path d="M0 0 Q-11 -10 0 -23 Q11 -10 0 0Z" transform="rotate(' + p * 60 + ')"/>';
+        s += '<circle r="4" fill="#e6bd60"/>';
+      }
+      return s + '</g>';
+    }
+    var n = letters.length, rows = Math.ceil(n / 8), offset = 0;
+    for (var row = 0; row < rows; row++) {
+      var count = Math.min(8, n - offset);
+      for (var col = 0; col < count; col++) {
+        var letter = letters[offset++], code = letter.charCodeAt(0) - 65;
+        var span = Math.min(220, 58 * (count - 1));
+        var x = 180 + (count === 1 ? 0 : (col / (count - 1) - 0.5) * span) + (rand() - 0.5) * 9;
+        var y = 96 + row * 42 + Math.abs(x - 180) * 0.25 + (rand() - 0.5) * 14;
+        if (n <= 4) y += (col % 2) * 22;
+        var color = colors[code % colors.length], type = code % 6;
+        stems += '<path d="M' + x + ' ' + y + ' Q' + (x + (180 - x) * 0.25) + ' 235 ' + (177 + rand() * 8) + ' 310" fill="none" stroke="' + green + '" stroke-width="2"/>';
+        var lx = x + (180 - x) * 0.37, ly = y + (290 - y) * 0.45;
+        stems += '<path d="M' + lx + ' ' + ly + 'q-28 -30 -33 -10q8 21 33 10m0 8q27 -29 31 -9q-9 19 -31 9" fill="#a9b99a" stroke="' + green + '" stroke-width="1"/>';
+        flowers += '<g transform="translate(' + x + ' ' + y + ') rotate(' + ((rand() - 0.5) * 26) + ') scale(' + (n > 16 ? 0.79 : n > 8 ? 0.9 : 1.08) + ')">' + flower(type, color) + '</g>';
+        if (!legend.some(function (entry) { return entry.letter === letter; })) legend.push({ letter: letter, color: color, type: type });
+      }
+    }
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 400" role="img" aria-label="Bó hoa vẽ tay kết từ các chữ cái trong tên" class="bouquet-art">' +
+      '<rect width="360" height="400" rx="22" fill="#fffaf2"/>' +
+      '<ellipse cx="180" cy="352" rx="72" ry="8" fill="#dac8b3" opacity=".2"/>' +
+      '<g fill="#e7cc9d" opacity=".6"><circle cx="48" cy="87" r="2"/><circle cx="311" cy="148" r="2"/><circle cx="282" cy="53" r="2"/></g>' +
+      '<path d="M64 195 Q162 214 292 187 L212 353 Q184 364 157 350Z" fill="#e9d6b9" stroke="#b9a68d" stroke-width="1.2"/>' +
+      stems + flowers +
+      '<path d="M64 195 Q113 218 183 278 L210 353 L157 350Z" fill="#f2e5cf" fill-opacity=".95" stroke="#b9a68d" stroke-width="1.1"/>' +
+      '<path d="M292 187 Q263 254 182 277 L157 350 Q181 362 212 353Z" fill="#f8edda" fill-opacity=".95" stroke="#b9a68d" stroke-width="1.1"/>' +
+      '<path d="M83 221L156 335M272 217Q230 279 202 335" fill="none" stroke="#cbb99f" stroke-width="1"/>' +
+      '<g fill="#d990a0" stroke="#a86e7e" stroke-width="1.3"><path d="M183 296C131 255 123 316 179 302C223 263 237 315 186 303Z"/><path d="M178 303Q169 327 147 340L162 340L167 352Q183 328 184 305M188 303Q193 326 218 337L207 339L206 350Q187 331 182 304"/><ellipse cx="183" cy="301" rx="7" ry="5"/></g></svg>';
+    return { svg: svg, letters: letters, fallback: fallback, legend: legend };
+  }
+
+  function renderBouquet(name) {
+    var result = bouquetForName(name);
+    $('bouquet-picture').innerHTML = result.svg;
+    $('bouquet-title').textContent = name ? 'Một bó hoa dành cho ' + name : 'Một bó hoa dành cho bạn';
+    $('bouquet-caption').textContent = result.fallback ? 'Một chút hoa, một chút thương gửi bạn.' : 'Mỗi chữ cái trong tên, một bông hoa nhỏ.';
+    var legend = $('bouquet-letters');
+    legend.replaceChildren();
+    if (!result.fallback) result.legend.forEach(function (entry) {
+      var chip = document.createElement('span');
+      chip.textContent = entry.letter;
+      chip.style.setProperty('--flower-color', entry.color);
+      legend.appendChild(chip);
+    });
+  }
+
+  function update() {
+    if (!card.hidden) renderBouquet(nameInput.value.trim());
+  }
+  new MutationObserver(update).observe(card, { attributes: true, attributeFilter: ['hidden'] });
+  update();
+})();
+</script>
+
+</html>
