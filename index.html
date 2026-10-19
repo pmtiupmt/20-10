@@ -852,7 +852,15 @@
 
       function openBox() {
         if (busy || opened) return;
-
+      
+        if (!nameInput.value.trim()) {
+          $('status').textContent = 'Bạn nhập tên trước khi mở hộp nhé 🌷';
+          nameInput.setAttribute('aria-invalid', 'true');
+          nameInput.focus();
+          return;
+        }
+      
+        nameInput.removeAttribute('aria-invalid');
         busy = true;
         openBtn.disabled = true;
         nameInput.disabled = true;
